@@ -1,0 +1,4 @@
+__pycache__/
+db.sqlite3
+# ecommerce/settings.py
+static_cdn/admin
