@@ -1,6 +1,7 @@
 # from django.shortcuts import render
 from django.views.generic import ListView, DetailView
 from django.http import Http404
+from django.shortcuts import get_object_or_404
 
 from products.models import Product
 
@@ -16,6 +17,16 @@ class ProductListView(ListView):
         context = super(ProductListView, self).get_context_data(*args, **kwargs)
         print("ProductListView Context:", context)
         return context
+
+
+class ProductDetailSlugView(DetailView):
+    queryset = Product.objects.all()
+    template_name = "products/detail.html"
+
+    def get_object(self, *args, **kwargs):
+        slug = self.kwargs.get('title')
+        instance = get_object_or_404(Product, slug=slug)
+        return instance
 
 
 class ProductDetailView(DetailView):
